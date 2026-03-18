@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>PantryPal</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <main class="container">
+        <div class="frame">
+            <section id="publicHome" class="public-home">
+                <header class="topbar public-topbar">
+                    <div>
+                        <h1 class="logo">PantryPal</h1>
+                        <p class="subtitle">Recipes for all occasions, from weeknight dinners to party dishes.</p>
+                    </div>
+                    <div class="topbar-actions">
+                        <button id="loginBtn" class="ghost">Log In</button>
+                        <button id="signupBtn" class="primary">Sign Up</button>
+                    </div>
+                </header>
+
+                <section class="banner-strip">
+                    <article class="banner-card banner-large" data-banner-slot="0"></article>
+                    <article class="banner-card" data-banner-slot="1"></article>
+                    <article class="banner-card" data-banner-slot="2"></article>
+                </section>
+
+                <section class="catalog-preview">
+                    <h2>Browse Recipe Categories</h2>
+                    <div class="chip-grid public-chip-grid">
+                        <span class="chip">Main</span>
+                        <span class="chip">Dinner</span>
+                        <span class="chip">Lunch</span>
+                        <span class="chip">Snacks</span>
+                        <span class="chip">Dessert</span>
+                        <span class="chip">Vegetarian</span>
+                        <span class="chip">Slow Cooker</span>
+                        <span class="chip">Casseroles</span>
+                        <span class="chip">Seasonal</span>
+                        <span class="chip">Dinner Party</span>
+                    </div>
+                    <p class="hint">Sign in to unlock full ingredient search, advanced filters, favorites, and shopping list tools.</p>
+                </section>
+            </section>
+
+            <section id="appShell" class="app-shell hidden">
+                <header class="topbar">
+                    <div>
+                        <h1 class="logo">PantryPal</h1>
+                        <p class="subtitle">Discover recipes by ingredients, cuisine, meal type and dietary needs.</p>
+                    </div>
+                    <div class="topbar-actions">
+                        <button id="quickAccessDrawerBtn" class="ghost topbar-quick-btn" title="Quick Access">
+                            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 5h12M4 10h12M4 15h12" stroke-linecap="round"/><circle cx="4" cy="5" r="0.8" fill="currentColor" stroke="none"/><circle cx="4" cy="10" r="0.8" fill="currentColor" stroke="none"/><circle cx="4" cy="15" r="0.8" fill="currentColor" stroke="none"/></svg>
+                            Quick Access
+                        </button>
+                        <button id="mealPlannerBtn" class="ghost" title="Meal Planner">Meal Planner</button>
+                        <button id="shoppingDrawerBtn" class="ghost topbar-shopping-btn" title="Shopping List">
+                            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M6 2L4 6H16L14 2" stroke-linecap="round" stroke-linejoin="round"/><rect x="3" y="6" width="14" height="11" rx="2"/><path d="M8 10h4M10 8v4" stroke-linecap="round"/></svg>
+                            Shopping List
+                            <span id="shoppingBadge" class="shopping-badge hidden">0</span>
+                        </button>
+                        <button id="demoModeBtn" class="secondary" title="Seed demo data and run a guided search">Demo Mode</button>
+                        <button id="favoritesBtn" class="ghost">Favorites</button>
+                        <button id="themeToggleBtn" class="ghost" title="Toggle Light/Dark Mode">Theme</button>
+                        <button id="healthBtn" class="ghost">Server</button>
+                        <button id="logoutBtn" class="secondary">Log Out</button>
+                    </div>
+                </header>
+
+                <div id="expiryNotificationBanner" class="expiry-banner hidden">
+                    <div class="expiry-banner-content">
+                        <span id="expiryBannerText"></span>
+                        <button id="dismissExpiryBanner" class="ghost">Dismiss</button>
+                    </div>
+                </div>
+
+                <section class="hero-panel">
+                    <div>
+                        <p class="hero-kicker">Simple Recipes For Real Everyday Cooking</p>
+                        <h2 class="hero-title">Cook What You Already Have, Waste Less Every Week</h2>
+                        <p class="hero-text">Discover practical recipes based on your pantry, prioritize expiring ingredients, and track your food waste impact in one place.</p>
+                    </div>
+                    <div id="quickOptions" class="chip-grid">
+                        <button class="chip" data-preset-ingredients="chicken, rice" data-preset-category="main">Weeknight Main</button>
+                        <button class="chip" data-preset-ingredients="egg, cheese" data-preset-category="breakfast">Breakfast</button>
+                        <button class="chip" data-preset-ingredients="beef, tomato" data-preset-category="dinner">Dinner Party</button>
+                        <button class="chip" data-preset-ingredients="mushroom, onion" data-preset-dietary="vegetarian">Vegetarian</button>
+                        <button class="chip" data-preset-ingredients="lentils, spinach" data-preset-dietary="vegan">Vegan</button>
+                        <button class="chip" data-preset-ingredients="pumpkin, potato" data-preset-seasonal="winter">Winter Recipes</button>
+                        <button class="chip" data-preset-ingredients="tomato, basil" data-preset-seasonal="summer">Summer Recipes</button>
+                        <button class="chip" data-preset-ingredients="chicken, paprika" data-preset-course="main">Popular Picks</button>
+                    </div>
+                </section>
+
+                <section id="impactStrip" class="impact-strip hidden">
+                    <article class="impact-tile">
+                        <p class="impact-label">Waste Reduction</p>
+                        <h3 id="impactWasteReduction">0%</h3>
+                    </article>
+                    <article class="impact-tile">
+                        <p class="impact-label">Cost Saved</p>
+                        <h3 id="impactCostReduction">0%</h3>
+                    </article>
+                    <article class="impact-tile">
+                        <p class="impact-label">CO2e Avoided</p>
+                        <h3 id="impactCo2">0 kg</h3>
+                    </article>
+                    <article class="impact-tile impact-tile-live">
+                        <p class="impact-label">Live Rescue</p>
+                        <h3 id="impactLive">0 expiring, 0 leftovers</h3>
+                    </article>
+                </section>
+                <section id="impactDashboard" class="impact-dashboard hidden">
+                    <article class="impact-dashboard-card">
+                        <p class="impact-label">Waste Log Entries</p>
+                        <h3 id="impactWasteEntries">0</h3>
+                    </article>
+
+                    <article class="impact-dashboard-card">
+                        <p class="impact-label">Top Waste Reason</p>
+                        <h3 id="impactTopReason">N/A</h3>
+                    </article>
+
+                    <article class="impact-dashboard-card">
+                        <p class="impact-label">Soon Expiring Items</p>
+                        <h3 id="impactSoonExpiring">0</h3>
+                    </article>
+
+                    <article class="impact-dashboard-card">
+                        <p class="impact-label">Active Leftovers</p>
+                        <h3 id="impactActiveLeftovers">0</h3>
+                    </article>
+                    <article class="impact-dashboard-card impact-dashboard-action">
+                        <button id="downloadReportBtn" class="secondary">Download Report (CSV)</button>
+                    </article>
+                </section>
+
+                <section id="dailySummary" class="daily-summary hidden">
+                    <h3>Daily Summary</h3>
+                    <div id="dailySummaryContent"></div>
+                </section>
+
+                <section id="mealPlannerSection" class="meal-planner hidden">
+                    <div class="section-head">
+                        <h2>Weekly Meal Planner</h2>
+                        <div class="mini-row">
+                            <button id="mealPlanPrevWeek" class="ghost">&larr;</button>
+                            <span id="mealPlanWeekLabel"></span>
+                            <button id="mealPlanNextWeek" class="ghost">&rarr;</button>
+                        </div>
+                    </div>
+                    <div id="mealPlanGrid" class="meal-plan-grid"></div>
+                    <button id="mealPlanGenerateShoppingBtn" class="secondary">Generate Shopping List</button>
+                </section>
+
+                <section class="search">
+                    <div class="search-bar">
+                        <div class="search-input-wrap">
+                            <svg class="search-icon" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 13.5L17 17" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+                            <input id="ingredients" placeholder="Enter ingredients, e.g. tomato, egg, cheese" />
+                            <ul id="ingredientAutocomplete" class="ingredient-autocomplete hidden" role="listbox"></ul>
+                        </div>
+                        <div class="search-bar-actions">
+                            <label class="mode-toggle" title="Prioritize recipes using ingredients that expire soon">
+                                <input id="prioritizeExpiryToggle" type="checkbox" />
+                                Expiry First
+                            </label>
+                            <label class="mode-toggle" title="Prioritize recipes that use active leftovers">
+                                <input id="rescueModeToggle" type="checkbox" />
+                                Rescue Mode
+                            </label>
+                            <button id="toggleSortBtn" class="ghost search-toggle-btn" type="button" aria-expanded="false">
+                                <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M2 4h12M4 8h8M6 12h4"/></svg>
+                                Sort
+                            </button>
+                            <button id="toggleFilterBtn" class="ghost search-toggle-btn" type="button" aria-expanded="false">
+                                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 4h12M5 8h6M8 12h0" stroke-linecap="round"/></svg>
+                                Filter
+                                <span id="filterBadge" class="filter-badge hidden">0</span>
+                            </button>
+                            <button id="btn" class="primary">Find Recipes</button>
+                        </div>
+                    </div>
+
+                    <!-- Sort panel -->
+                    <div id="sortPanel" class="search-panel hidden">
+                        <div class="search-panel-inner">
+                            <p class="panel-label">Sort Results By</p>
+                            <div class="sort-options">
+                                <label class="sort-option">
+                                    <input type="radio" name="sortRadio" value="score" checked />
+                                    <span>Best Match</span>
+                                </label>
+                                <label class="sort-option">
+                                    <input type="radio" name="sortRadio" value="time" />
+                                    <span>Fastest First</span>
+                                </label>
+                                <label class="sort-option">
+                                    <input type="radio" name="sortRadio" value="ratio" />
+                                    <span>Highest Ingredient Match %</span>
+                                </label>
+                                <label class="sort-option">
+                                    <input type="radio" name="sortRadio" value="missing" />
+                                    <span>Least Missing Ingredients</span>
+                                </label>
+                            </div>
+                            <select id="sortSelect" class="hidden" aria-hidden="true"></select>
+                        </div>
+                    </div>
+
+                    <!-- Filter panel -->
+                    <div id="filterPanel" class="search-panel hidden">
+                        <div class="search-panel-inner">
+                            <div class="filter-panel-head">
+                                <p class="panel-label">Filter Recipes</p>
+                                <button id="clearFiltersBtn" class="ghost" type="button">Clear All</button>
+                            </div>
+                            <div class="filters-grid">
+                                <div class="filter-field">
+                                    <label class="label" for="recipeName">Recipe Name</label>
+                                    <input id="recipeName" type="text" placeholder="e.g. curry, pasta" />
+                                </div>
+                                <div class="filter-field">
+                                    <label class="label" for="areaSelect">Cuisine / Country</label>
+                                    <select id="areaSelect"></select>
+                                </div>
+                                <div class="filter-field">
+                                    <label class="label" for="categorySelect">Dish Type</label>
+                                    <select id="categorySelect"></select>
+                                </div>
+                                <div class="filter-field">
+                                    <label class="label" for="mealTypeSelect">Meal Type</label>
+                                    <select id="mealTypeSelect">
+                                        <option value="">Any</option>
+                                        <option value="breakfast">Breakfast</option>
+                                        <option value="brunch">Brunch</option>
+                                        <option value="lunch">Lunch</option>
+                                        <option value="dinner">Dinner</option>
+                                        <option value="snack">Snack</option>
+                                        <option value="dessert">Dessert</option>
+                                    </select>
+                                </div>
+                                <div class="filter-field">
+                                    <label class="label" for="dietarySelect">Dietary</label>
+                                    <select id="dietarySelect">
+                                        <option value="">Any</option>
+                                        <option value="vegetarian">Vegetarian</option>
+                                        <option value="vegan">Vegan</option>
+                                        <option value="gluten-free">Gluten Free</option>
+                                        <option value="high-protein">High Protein</option>
+                                        <option value="quick">Quick Meals</option>
+                                    </select>
+                                </div>
+                                <div class="filter-field">
+                                    <label class="label" for="seasonalSelect">Season</label>
+                                    <select id="seasonalSelect">
+                                        <option value="">Any</option>
+                                        <option value="spring">Spring</option>
+                                        <option value="summer">Summer</option>
+                                        <option value="autumn">Autumn</option>
+                                        <option value="winter">Winter</option>
+                                        <option value="festive">Festive</option>
+                                    </select>
+                                </div>
+                                <div class="filter-field">
+                                    <label class="label" for="maxMinutes">Max Cook Time (mins)</label>
+                                    <input id="maxMinutes" type="number" min="1" placeholder="e.g. 30" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="toast" class="toast hidden"></div>
+                </section>
+
+                <div class="layout">
+                    <section id="recipeResultsSection" class="main hidden">
+                        <section id="featuredWastePicks" class="featured-picks hidden">
+                            <div class="featured-picks-head">
+                                <h3>Featured Waste-Saving Picks</h3>
+                                <p>Recipes that best use what you already have.</p>
+                            </div>
+                            <div id="featuredWasteGrid" class="featured-picks-grid"></div>
+                        </section>
+
+                        <section id="latestWasteSection" class="editorial-section hidden">
+                            <div class="editorial-head">
+                                <h3>Latest Waste-Saving Recipes</h3>
+                                <p>Fresh picks based on what is currently in your kitchen.</p>
+                            </div>
+                            <div id="latestWasteGrid" class="editorial-grid"></div>
+                        </section>
+
+                        <section id="popularWeekSection" class="editorial-section hidden">
+                            <div class="editorial-head">
+                                <h3>Popular This Week</h3>
+                                <p>Best overall pantry-match recipes from your current search.</p>
+                            </div>
+                            <div id="popularWeekGrid" class="editorial-grid"></div>
+                        </section>
+
+                        <div class="section-head">
+                            <h2>Recipe Results</h2>
+                            <div class="mini-row">
+                                <button id="clearFiltersResultsBtn" class="secondary">Clear Filters</button>
+                            </div>
+                        </div>
+                        <div id="cards" class="cards"></div>
+                        
+                        <!-- Loading skeleton placeholder -->
+                        <div id="loadingSkeleton" class="cards hidden">
+                            <div class="card skeleton-card"></div>
+                            <div class="card skeleton-card"></div>
+                            <div class="card skeleton-card"></div>
+                            <div class="card skeleton-card"></div>
+                        </div>
+                    </section>
+
+                    <aside class="sidebar">
+                        <section id="savedRecipesCard" class="stack-gap sidebar-section-card">
+                            <h2>Saved Recipes</h2>
+                            <div id="favoritesPanel" class="list scroll-panel">
+                                <div id="favoritesList"></div>
+                            </div>
+                        </section>
+
+                        <section id="pantryCard" class="stack-gap side-feature-block sidebar-section-card">
+                            <h2>Expiry-Aware Pantry</h2>
+                            <form id="pantryForm" class="mini-form">
+                                <input id="pantryIngredient" type="text" placeholder="Ingredient name" required />
+                                <div class="mini-row-grid">
+                                    <input id="pantryQuantity" type="number" min="0" step="0.1" placeholder="Qty" />
+                                    <input id="pantryUnit" type="text" placeholder="Unit" />
+                                </div>
+                                <input id="pantryExpiry" type="date" required />
+                                <button class="primary" type="submit">Add Pantry Item</button>
+                            </form>
+                            <details class="bulk-import-toggle">
+                                <summary>Quick Add (Bulk Import)</summary>
+                                <textarea id="bulkPantryInput" placeholder="Paste one ingredient per line, e.g.&#10;tomato&#10;cheese&#10;milk" rows="4"></textarea>
+                                <input id="bulkPantryExpiry" type="date" required />
+                                <button id="bulkPantryBtn" class="secondary" type="button">Add All</button>
+                            </details>
+                            <div id="soonExpiringAlert" class="hint"></div>
+                            <div id="pantryList" class="list scroll-panel compact-list"></div>
+                        </section>
+
+                        <section id="leftoverCard" class="stack-gap side-feature-block sidebar-section-card">
+                            <h2>Leftover Rescue</h2>
+                            <form id="leftoverForm" class="mini-form">
+                                <input id="leftoverName" type="text" placeholder="Leftover name" required />
+                                <div class="mini-row-grid">
+                                    <input id="leftoverAmount" type="number" min="0" step="0.1" placeholder="Amount" />
+                                    <input id="leftoverUnit" type="text" placeholder="Unit" />
+                                </div>
+                                <input id="leftoverMustUseBy" type="date" required />
+                                <button class="primary" type="submit">Add Leftover</button>
+                            </form>
+                            <div id="leftoverList" class="list scroll-panel compact-list"></div>
+                        </section>
+
+                        <section id="wasteTrackerCard" class="stack-gap side-feature-block sidebar-section-card">
+                            <h2>Waste Tracker</h2>
+                            <form id="wasteForm" class="mini-form">
+                                <input id="wasteIngredient" type="text" placeholder="Wasted ingredient" required />
+                                <div class="mini-row-grid">
+                                    <input id="wasteQuantity" type="number" min="0" step="0.1" placeholder="Qty" />
+                                    <input id="wasteUnit" type="text" placeholder="Unit" />
+                                </div>
+                                <div class="mini-row-grid">
+                                    <input id="wasteWeight" type="number" min="0" step="1" placeholder="Weight (g)" />
+                                    <input id="wasteCost" type="number" min="0" step="0.01" placeholder="Cost" />
+                                </div>
+                                <select id="wasteReason">
+                                    <option value="expired">Expired</option>
+                                    <option value="overcooked">Overcooked</option>
+                                    <option value="forgot">Forgot</option>
+                                    <option value="disliked">Disliked</option>
+                                    <option value="too_much_bought">Too much bought</option>
+                                    <option value="other">Other</option>
+                                </select>
+                                <button class="primary" type="submit">Log Waste</button>
+                            </form>
+                            <div id="impactSummary" class="impact-summary"></div>
+                            <div id="wasteList" class="list scroll-panel compact-list"></div>
+                        </section>
+
+                        <section id="cookLogCard" class="stack-gap side-feature-block sidebar-section-card">
+                            <h2>Cook Again</h2>
+                            <div id="cookLogList" class="list scroll-panel compact-list"></div>
+                        </section>
+
+                        <div class="sidebar-duo-grid">
+                            <section id="missionCard" class="stack-gap side-feature-block sidebar-info-card sidebar-section-card">
+                                <h2>Mission Snapshot</h2>
+                                <p class="sidebar-note">Keep this week sustainable by prioritizing ingredients that are expiring first.</p>
+                                <div class="sidebar-metric-row">
+                                    <span>Expiring Soon</span>
+                                    <strong id="sideExpiringCount">0</strong>
+                                </div>
+                                <div class="sidebar-metric-row">
+                                    <span>Active Leftovers</span>
+                                    <strong id="sideLeftoverCount">0</strong>
+                                </div>
+                                <div class="sidebar-metric-row">
+                                    <span>Waste Reduction</span>
+                                    <strong id="sideWasteReduction">0%</strong>
+                                </div>
+                            </section>
+
+                            <section id="checklistCard" class="stack-gap side-feature-block sidebar-info-card sidebar-section-card">
+                                <h2>Waste-Smart Checklist</h2>
+                                <ul class="sidebar-checklist">
+                                    <li>Turn on Expiry First mode before searching</li>
+                                    <li>Use one leftover in your next meal</li>
+                                    <li>Scale servings to avoid overcooking</li>
+                                </ul>
+                                <button id="runRescueSearchBtn" class="secondary">Run Rescue Search</button>
+                            </section>
+                        </div>
+                    </aside>
+                </div>
+
+            </section>
+        </div>
+    </main>
+
+    <!-- Shopping List Drawer -->
+    <div id="shoppingDrawer" class="shopping-drawer hidden" aria-hidden="true">
+        <div class="shopping-drawer-panel">
+            <div class="shopping-drawer-header">
+                <h2>Shopping List</h2>
+                <div class="shopping-drawer-actions">
+                    <button id="copyList" class="secondary">Copy</button>
+                    <button id="downloadList" class="secondary">Download</button>
+                    <button id="clearList" class="secondary">Clear All</button>
+                    <button id="closeShoppingDrawer" class="ghost" aria-label="Close">&times;</button>
+                </div>
+            </div>
+            <div id="shoppingList" class="list shopping-drawer-list"></div>
+        </div>
+    </div>
+
+    <!-- Quick Access Drawer -->
+    <div id="quickAccessDrawer" class="quick-access-drawer hidden" aria-hidden="true">
+        <div class="quick-access-drawer-panel">
+            <div class="quick-access-drawer-header">
+                <h2>Quick Access</h2>
+                <button id="closeQuickAccessDrawer" class="ghost" aria-label="Close">&times;</button>
+            </div>
+            <div id="quickAccessSidebarHost" class="quick-access-sidebar-host"></div>
+        </div>
+    </div>
+
+    <div id="modalOverlay" class="modal-overlay hidden" aria-hidden="true">
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <div class="modal-header">
+                <h3 id="modalTitle">Recipe</h3>
+                <button id="closeModal" class="secondary">Close</button>
+            </div>
+            <img id="modalImg" alt="" class="modal-img" />
+            <div class="modal-body">
+                <div class="badge-row">
+                    <span id="modalMeta" class="badge"></span>
+                    <span id="modalCounts" class="badge"></span>
+                </div>
+                <div id="modalExplainability" class="explainability-panel"></div>
+                <p><b>Used:</b> <span id="modalUsed"></span></p>
+                <p><b>Missing:</b> <span id="modalMissing"></span></p>
+                <div class="row">
+                    <button id="modalAddMissing" class="secondary">Add Missing To Shopping List</button>
+                    <button id="modalHeartBtn" class="primary">Save Recipe</button>
+                    <button id="modalCookBtn" class="secondary">I Cooked This</button>
+                    <button id="modalShareBtn" class="ghost">Share</button>
+                    <button id="modalMealPlanBtn" class="ghost">+ Meal Plan</button>
+                </div>
+                <div class="servings-scaler">
+                    <p><b>Servings:</b></p>
+                    <div class="servings-buttons">
+                        <button class="serving-btn" data-servings="1">1</button>
+                        <button class="serving-btn" data-servings="2">2</button>
+                        <button class="serving-btn" data-servings="4" selected>4</button>
+                        <button class="serving-btn" data-servings="8">8</button>
+                    </div>
+                    <button id="printRecipeBtn" class="ghost">🖨️ Print</button>
+                </div>
+                <h4>Instructions</h4>
+                <p id="modalInstructions" class="instructions"></p>
+                <div id="modalLinks" class="links"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="authModal" class="modal-overlay hidden" aria-hidden="true">
+        <div class="modal auth-modal" role="dialog" aria-modal="true" aria-labelledby="authTitle">
+            <div class="modal-header">
+                <h3 id="authTitle">Account</h3>
+                <button id="closeAuthModal" class="secondary">Close</button>
+            </div>
+            <div class="modal-body">
+                <div class="auth-tabs">
+                    <button id="authTabLogin" class="secondary auth-tab active">Log In</button>
+                    <button id="authTabSignup" class="secondary auth-tab">Sign Up</button>
+                </div>
+
+                <p id="authFeedback" class="auth-feedback hidden" role="status" aria-live="polite"></p>
+
+                <form id="loginForm" class="auth-form">
+                    <label class="label" for="loginEmail">Email</label>
+                    <input id="loginEmail" type="email" required placeholder="name@example.com" />
+                    <label class="label" for="loginPassword">Password</label>
+                    <input id="loginPassword" type="password" required placeholder="Enter password" />
+                    <button type="submit" class="primary">Log In</button>
+                </form>
+
+                <form id="signupForm" class="auth-form hidden">
+                    <label class="label" for="signupName">Full Name</label>
+                    <input id="signupName" type="text" required placeholder="Your name" />
+                    <label class="label" for="signupEmail">Email</label>
+                    <input id="signupEmail" type="email" required placeholder="name@example.com" />
+                    <label class="label" for="signupPassword">Password</label>
+                    <input id="signupPassword" type="password" required placeholder="Create password" />
+                    <button type="submit" class="primary">Create Account</button>
+                </form>
+
+                <p class="hint">Create an account to unlock full search, favorites, and shopping list sync.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Survey Modal -->
+    <div id="surveyModal" class="modal-overlay hidden" aria-hidden="true">
+        <div class="modal survey-modal" role="dialog" aria-modal="true">
+            <div class="modal-header">
+                <h3>Quick Feedback</h3>
+                <button id="closeSurvey" class="secondary">Close</button>
+            </div>
+            <div class="modal-body">
+                <div class="survey-question">
+                    <label class="label">How useful is PantryPal for reducing food waste?</label>
+                    <select id="surveyQ1">
+                        <option value="">Select...</option>
+                        <option value="very">Very useful</option>
+                        <option value="somewhat">Somewhat useful</option>
+                        <option value="not">Not useful</option>
+                    </select>
+                </div>
+                <div class="survey-question">
+                    <label class="label">Which feature do you use most?</label>
+                    <select id="surveyQ2">
+                        <option value="">Select...</option>
+                        <option value="search">Recipe Search</option>
+                        <option value="pantry">Pantry Tracking</option>
+                        <option value="waste">Waste Logging</option>
+                        <option value="shopping">Shopping List</option>
+                        <option value="mealplan">Meal Planner</option>
+                    </select>
+                </div>
+                <div class="survey-question">
+                    <label class="label">How likely are you to recommend PantryPal? (1-10)</label>
+                    <input id="surveyQ3" type="number" min="1" max="10" placeholder="1-10" />
+                </div>
+                <button id="submitSurvey" class="primary">Submit Feedback</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Onboarding Overlay -->
+    <div id="onboardingOverlay" class="onboarding-overlay hidden" aria-hidden="true">
+        <div class="onboarding-spotlight"></div>
+        <div class="onboarding-tooltip">
+            <h4 id="onboardingTitle"></h4>
+            <p id="onboardingText"></p>
+            <div class="onboarding-actions">
+                <button id="onboardingSkip" class="ghost">Skip</button>
+                <button id="onboardingNext" class="primary">Next</button>
+            </div>
+            <div id="onboardingProgress" class="onboarding-progress"></div>
+        </div>
+    </div>
+
+    <!-- Meal Plan Picker (mini-modal for assigning recipe to a day) -->
+    <div id="mealPlanPicker" class="modal-overlay hidden" aria-hidden="true">
+        <div class="modal meal-plan-picker-modal" role="dialog" aria-modal="true">
+            <div class="modal-header">
+                <h3>Add to Meal Plan</h3>
+                <button id="closeMealPlanPicker" class="secondary">Close</button>
+            </div>
+            <div class="modal-body">
+                <div class="filter-field">
+                    <label class="label" for="mealPlanPickerDay">Day</label>
+                    <select id="mealPlanPickerDay">
+                        <option value="mon">Monday</option>
+                        <option value="tue">Tuesday</option>
+                        <option value="wed">Wednesday</option>
+                        <option value="thu">Thursday</option>
+                        <option value="fri">Friday</option>
+                        <option value="sat">Saturday</option>
+                        <option value="sun">Sunday</option>
+                    </select>
+                </div>
+                <div class="filter-field">
+                    <label class="label" for="mealPlanPickerSlot">Meal</label>
+                    <select id="mealPlanPickerSlot">
+                        <option value="breakfast">Breakfast</option>
+                        <option value="lunch">Lunch</option>
+                        <option value="dinner" selected>Dinner</option>
+                        <option value="snack">Snack</option>
+                    </select>
+                </div>
+                <button id="mealPlanPickerConfirm" class="primary">Add to Plan</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.user-data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
