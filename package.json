@@ -2,10 +2,10 @@
   "name": "pantrypal",
   "version": "1.0.0",
   "description": "Ingredient-first recipe recommendation platform focused on reducing household food waste.",
-  "main": "server.js",
+  "main": "server/server.js",
   "scripts": {
     "test": "node --test tests/**/*.test.js",
-    "start": "node server.js",
+    "start": "node server/server.js",
     "smoke": "bash scripts/smoke-test.sh"
   },
   "keywords": [],

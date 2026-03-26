@@ -4,8 +4,8 @@ const express = require("express");
 const path = require("path");
 const crypto = require("crypto");
 const mongoose = require("mongoose");
-const { registerUserRoutes } = require("./server-user-routes");
-const { registerRecipeRoutes } = require("./server-recipe-routes");
+const { registerUserRoutes } = require("./routes/user-routes");
+const { registerRecipeRoutes } = require("./routes/recipe-routes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -693,7 +693,12 @@ registerUserRoutes(app, {
     deleteOwnedDoc,
 });
 
-app.use(express.static(path.join(__dirname, "public")));
+const PUBLIC_ROOT = path.join(__dirname, "..", "public");
+app.use(express.static(PUBLIC_ROOT));
+
+app.get("/", (_req, res) => {
+    res.sendFile(path.join(PUBLIC_ROOT, "html", "index.html"));
+});
 
 registerRecipeRoutes(app, {
     getCache,
