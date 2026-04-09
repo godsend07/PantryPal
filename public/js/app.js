@@ -1,7 +1,6 @@
 /* PantryPal frontend */
 
 const btn = document.getElementById("btn");
-const healthBtn = document.getElementById("healthBtn");
 const input = document.getElementById("ingredients");
 const recipeNameInput = document.getElementById("recipeName");
 const cards = document.getElementById("cards");
@@ -350,6 +349,17 @@ function showToast(message) {
     toastTimer = setTimeout(() => toast.classList.add("hidden"), 2200);
 }
 
+function showAuthWelcomeMessage(action, user) {
+    const name = user?.name?.trim() || "there";
+    const firstName = name.split(/\s+/)[0] || name;
+    const message = action === "signup"
+        ? `Welcome to PantryPal, ${firstName}. Your account is ready.`
+        : `Welcome back, ${firstName}. PantryPal is ready when you are.`;
+
+    setAuthFeedback(message, "success");
+    showToast(message);
+}
+
 function showActionToast(message, actions) {
     if (!toast) return;
     const btnsHtml = actions.map((a) =>
@@ -560,10 +570,9 @@ if (loginForm) {
             });
 
             setSession({ token: data.token, user: data.user, at: Date.now() });
-            setAuthFeedback("Login successful", "success");
+            showAuthWelcomeMessage("login", data.user);
             closeAuth();
             await applyAuthView();
-            showToast("Logged in successfully");
         } catch (err) {
             setAuthFeedback(err.message, "error");
             showToast(err.message);
@@ -588,10 +597,9 @@ if (signupForm) {
             });
 
             setSession({ token: data.token, user: data.user, at: Date.now() });
-            setAuthFeedback("Signup successful", "success");
+            showAuthWelcomeMessage("signup", data.user);
             closeAuth();
             await applyAuthView();
-            showToast("Account created and logged in");
         } catch (err) {
             const msg = String(err.message || "Signup failed");
             const existsError = msg.toLowerCase().includes("already") || msg.toLowerCase().includes("registered");
@@ -657,19 +665,6 @@ if (input) {
     input.addEventListener("input", () => {
         if (!hasActiveSearchCriteria()) {
             clearRecipeResultsAndHide();
-        }
-    });
-}
-
-if (healthBtn) {
-    healthBtn.addEventListener("click", async () => {
-        try {
-            const data = await fetchJson("/api/health");
-            setDebug(data);
-            showToast("Server is healthy");
-        } catch (err) {
-            setDebug({ error: err.message });
-            showToast("Server error");
         }
     });
 }

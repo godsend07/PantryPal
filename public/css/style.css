@@ -3109,6 +3109,104 @@ a:focus-visible {
     }
 }
 
+[data-theme="light"] .section-rail,
+[data-theme="light"] .recently-viewed-panel,
+[data-theme="light"] .shopping-drawer-panel,
+[data-theme="light"] .quick-access-drawer-panel,
+[data-theme="light"] .modal,
+[data-theme="light"] .card,
+[data-theme="light"] .impact-dashboard-card,
+[data-theme="light"] .impact-tile,
+[data-theme="light"] .shopping-group,
+[data-theme="light"] .recipe-explainability,
+[data-theme="light"] .explainability-panel,
+[data-theme="light"] .debug {
+    background: #fffdf9;
+    border-color: rgba(60, 50, 39, 0.12);
+    box-shadow: 0 6px 18px rgba(40, 28, 14, 0.06);
+}
+
+[data-theme="light"] .shopping-drawer,
+[data-theme="light"] .quick-access-drawer {
+    background: rgba(60, 50, 39, 0.14);
+}
+
+[data-theme="light"] .shopping-drawer-header,
+[data-theme="light"] .quick-access-drawer-header,
+[data-theme="light"] .modal-header {
+    border-bottom-color: rgba(60, 50, 39, 0.12);
+}
+
+[data-theme="light"] .section-rail-group,
+[data-theme="light"] .recent-card,
+[data-theme="light"] .list-item,
+[data-theme="light"] .favorite-item {
+    background: #fff;
+    border-color: rgba(60, 50, 39, 0.14);
+}
+
+[data-theme="light"] .section-rail-link {
+    background: #fff;
+    color: #4a3720;
+    border-bottom-color: rgba(60, 50, 39, 0.12);
+}
+
+[data-theme="light"] .section-rail-link:hover,
+[data-theme="light"] .section-rail-link:focus-visible,
+[data-theme="light"] .section-rail-link.is-active {
+    color: #2f261c;
+    background: #f8f1e5;
+}
+
+[data-theme="light"] .mode-toggle {
+    background: #fff;
+    color: #564534;
+    border-color: rgba(110, 84, 51, 0.28);
+}
+
+[data-theme="light"] .shopping-group-header {
+    background: rgba(179, 135, 67, 0.08);
+    border-bottom-color: rgba(60, 50, 39, 0.12);
+}
+
+[data-theme="light"] .recent-card h4 {
+    color: #2f261c;
+}
+
+[data-theme="light"] .impact-dashboard-card h3,
+[data-theme="light"] .impact-tile h3 {
+    color: #463117;
+}
+
+[data-theme="light"] .links a {
+    background: #fff;
+    color: #745630;
+    border-color: rgba(110, 84, 51, 0.28);
+}
+
+[data-theme="light"] .auth-feedback {
+    background: #fff;
+    color: #564534;
+    border-color: rgba(60, 50, 39, 0.14);
+}
+
+[data-theme="light"] .auth-feedback.success {
+    background: rgba(77, 143, 105, 0.12);
+    border-color: rgba(77, 143, 105, 0.24);
+    color: #2a6d48;
+}
+
+[data-theme="light"] .auth-feedback.error {
+    background: rgba(220, 38, 38, 0.1);
+    border-color: rgba(220, 38, 38, 0.18);
+    color: #8a2b2b;
+}
+
+[data-theme="light"] .debug {
+    color: #6b4f25;
+    border-color: rgba(179, 135, 67, 0.22);
+}
+
 /* ── Bulk Import ───────────────────────────────────────────── */
 
 .bulk-import-toggle {
